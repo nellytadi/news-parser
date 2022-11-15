@@ -1,0 +1,102 @@
+{% extends "layout.html.twig" %}
+{% block title %} News {% endblock %}
+
+{% block body %}
+<style>
+    .float-right{
+        float: right;
+    }
+</style>
+<div class="container mt-5">
+    {% if app.user %}
+        <div class="float-right">
+            <div>You are logged in as {{ app.user.userIdentifier }}</div>
+             <a href="{{ path('app_logout') }}"><button class="btn btn-primary float-right">Logout</button></a>
+        </div>
+    {% endif %}
+
+
+    <h1 class="text-center py-3">News articles</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">title</th>
+            <th scope="col">source</th>
+            <th scope="col">description</th>
+            <th scope="col">image</th>
+            <th scope="col">date added</th>
+            <th scope="col">action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for news in paginator.results %}
+            <tr>
+                <th scope="row"> {{ news.id }} </th>
+                <td> {{ news.title }} </td>
+                <td><a href="{{ news.source.url }}">{{ news.source.title }}</a></td>
+                <td> {{ news.description }} </td>
+                <td> <img src="{{ news.image }}" width="200"  /> </td>
+                <td> {{ news.createdAt }} </td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <form
+                                action="{{ url('news_delete', {id: news.id}) }}"
+                                id="delete-form"
+                                method="post"
+                                onSubmit="if(!confirm('Do you want to delete this post?')){return false;}"
+                        >
+                            <input type="hidden" name="token" value="{{ csrf_token('delete') }}" />
+                            <input class="btn btn-danger" type="submit"   value="Delete"/>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <th scope="row"> -</th>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+                <td> - </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if paginator.hasToPaginate %}
+        <div class="navigation text-center">
+            <ul class="pagination">
+                {% if paginator.hasPreviousPage %}
+                    <li class="page-item"><a class="page-link"
+                                             href="{{ path('news_paginated', {page: paginator.previousPage}) }}"
+                                             rel="previous"><i class="fa fw fa-long-arrow-left"></i> previous </a></li>
+                {% else %}
+                    <li class="page-item"><span class="page-link"> previous  </span></li>
+                {% endif %}
+
+                {% for i in 1..paginator.lastPage %}
+                    {% if i == paginator.currentPage %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ i }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="{{ path('news_paginated', {page: i}) }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if paginator.hasNextPage %}
+                    <li class="page-item"><a class="page-link"
+                                             href="{{ path('news_paginated', {page: paginator.nextPage}) }}"
+                                             rel="next"> next <i class="fa fw fa-arrow-right"></i></a></li>
+                {% else %}
+                    <li class="page-item"><span class="page-link"> next  </span></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html.twig" %}
+{% block title %}Register!{% endblock %}
+{% block body %}
+    <div class="container">
+    <h1 class="text-center mt-5">Article Parser!</h1>
+    <div class="row">
+        <div class="col-6 mx-auto mt-5 form">
+            <h3 class="pb-4">Register</h3>
+
+            {{ form_start(registrationForm) }}
+            <div class="mb-3">
+            {{ form_row(registrationForm.email) }}
+            </div>
+            <div class="mb-3">
+            {{ form_row(registrationForm.username) }}
+            </div>
+            <div class="mb-3">
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+            {{ form_end(registrationForm) }}
+
+        </div>
+    </div>
+    </div>
+{% endblock %}
