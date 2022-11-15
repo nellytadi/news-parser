@@ -2,8 +2,10 @@
 1. Clone the repository
 
 ```git clone https://github.com/nellytadi/news-parser.git```
+
 2. Change Directory
-        cd news-parser
+   
+        $ cd news-parser
 
 3. Build Docker
 
