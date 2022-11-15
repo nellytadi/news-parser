@@ -3,7 +3,6 @@
 
 namespace App\MessageHandler;
 
-use App\Entity\Source;
 use App\Repository\NewsRepository;
 use App\Service\NewsService;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;

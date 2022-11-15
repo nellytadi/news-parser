@@ -3,10 +3,7 @@
 namespace App\Command;
 
 use App\Message\NewsParser;
-use App\Repository\NewsRepository;
 use App\Repository\SourceRepository;
-use App\Service\NewsService;
-use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

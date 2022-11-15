@@ -47,8 +47,16 @@ class AppFixtures extends Fixture
     private function seedNewsAndSource(ObjectManager $manager): void {
         $source = new Source();
         $source->setUrl('https://highload.today/category/novosti/');
-        $source->setCreatedAt(new \DateTimeImmutable());
         $source->setTitle('Highload.today');
+        $source->setMainWrapper('.sidebar-center');
+        $source->setWrapper('.lenta-item');
+        $source->setTitleSelector('h2');
+        $source->setDescriptionSelector('p');
+        $source->setImageSelector('img');
+        $source->setUrlSelector('a');
+        $source->setDateSelector('.meta-datetime');
+        $source->setCreatedAt(new \DateTimeImmutable());
+
         $manager->persist($source);
 
 

@@ -27,6 +27,27 @@ class Source
     #[ORM\OneToMany(mappedBy: 'source', targetEntity: News::class, orphanRemoval: true)]
     private Collection $news;
 
+    #[ORM\Column(length: 255)]
+    private ?string $mainWrapper = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $wrapper = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $titleSelector = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $descriptionSelector = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $imageSelector = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $urlSelector = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $dateSelector = null;
+
 
     public function __construct()
     {
@@ -100,6 +121,90 @@ class Source
                 $news->setSource(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMainWrapper(): ?string
+    {
+        return $this->mainWrapper;
+    }
+
+    public function setMainWrapper(string $mainWrapper): self
+    {
+        $this->mainWrapper = $mainWrapper;
+
+        return $this;
+    }
+
+    public function getWrapper(): ?string
+    {
+        return $this->wrapper;
+    }
+
+    public function setWrapper(string $wrapper): self
+    {
+        $this->wrapper = $wrapper;
+
+        return $this;
+    }
+
+    public function getTitleSelector(): ?string
+    {
+        return $this->titleSelector;
+    }
+
+    public function setTitleSelector(string $titleSelector): self
+    {
+        $this->titleSelector = $titleSelector;
+
+        return $this;
+    }
+
+    public function getDescriptionSelector(): ?string
+    {
+        return $this->descriptionSelector;
+    }
+
+    public function setDescriptionSelector(string $descriptionSelector): self
+    {
+        $this->descriptionSelector = $descriptionSelector;
+
+        return $this;
+    }
+
+    public function getImageSelector(): ?string
+    {
+        return $this->imageSelector;
+    }
+
+    public function setImageSelector(string $imageSelector): self
+    {
+        $this->imageSelector = $imageSelector;
+
+        return $this;
+    }
+
+    public function getUrlSelector(): ?string
+    {
+        return $this->urlSelector;
+    }
+
+    public function setUrlSelector(string $urlSelector): self
+    {
+        $this->urlSelector = $urlSelector;
+
+        return $this;
+    }
+
+    public function getDateSelector(): ?string
+    {
+        return $this->dateSelector;
+    }
+
+    public function setDateSelector(string $dateSelector): self
+    {
+        $this->dateSelector = $dateSelector;
 
         return $this;
     }

@@ -30,17 +30,17 @@ class NewsService
 
         $client->request('GET', $source->getUrl());
 
-        $crawler = $client->waitFor('.sidebar-center');
+        $crawler = $client->waitFor($source->getMainWrapper());
 
 
-        $crawler->filter('.lenta-item')->each(function (Crawler $crawl) use ($source) {
+        $crawler->filter($source->getWrapper())->each(function (Crawler $crawl) use ($source) {
 
-            if ($crawl->filter('h2')->count() > 0) {
-                $title = $crawl->filter('h2')->text();
-                $description = $crawl->filter('p')->last()->text();
-                $image = $crawl->filter('img')->attr('data-lazy-src');
-                $url = $crawl->filter('a')->last()->attr('href');
-                $date = $crawl->filter('.meta-datetime')->first()->text();
+            if ($crawl->filter($source->getTitleSelector())->count() > 0) {
+                $title = $crawl->filter($source->getTitleSelector())->text();
+                $description = $crawl->filter($source->getDescriptionSelector())->last()->text();
+                $image = $crawl->filter($source->getImageSelector())->attr('data-lazy-src');
+                $url = $crawl->filter($source->getUrlSelector())->last()->attr('href');
+                $date = $crawl->filter($source->getDateSelector())->first()->text();
 
                 $checkIfNewsExists = $this->newsRepository->findOneBy(['title' => $title]);
                 if (!is_null($checkIfNewsExists)) {
